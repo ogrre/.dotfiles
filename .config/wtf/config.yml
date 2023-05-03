@@ -1,0 +1,61 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+  grid:
+    columns: [32, 32, 32, 32, 90]
+    rows: [10, 10, 10, 4, 4, 90]
+  refreshInterval: 1
+  mods:
+    ipinfo:
+      colors:
+        name: "lightblue"
+        value: "white"
+      enabled: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 2
+      refreshInterval: 150
+    clocks_a:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Montreal: "America/Montreal"
+        Paris: "Europe/Paris"
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+      title: "Clocks A"
+      type: "clocks"
+    power:
+      enabled: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 15
+      title: "⚡️"
+    docker:
+      type: docker
+      enabled: true
+      labelColor: lightblue
+      position:
+        top: 2
+        left: 0
+        height: 4
+        width: 2
+      refreshInterval: 1s 
+      title: "Docker" 
+
