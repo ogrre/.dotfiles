@@ -111,6 +111,18 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export NVM_SYMLINK_CURRENT=true
 export PATH="/opt/homebrew/Cellar/vim/8.2.3450:$PATH"
 
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# pnpm
+export PNPM_HOME="/Users/jbloup/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
 # alias php
 alias lsphp="ls /Applications/MAMP/bin/php/"
 alias php8.2="/opt/homebrew/Cellar/php/8.2.5/bin/php"
@@ -134,17 +146,14 @@ alias n="/opt/homebrew/bin/nvim"
 # bun completions
 [ -s "/Users/jbloup/.bun/_bun" ] && source "/Users/jbloup/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+# Towared root navigations
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-# pnpm
-export PNPM_HOME="/Users/jbloup/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-# pnpm end
+# refresh terminal
+alias so="source ~/.zshrc"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
