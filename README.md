@@ -32,7 +32,7 @@ This script sets up the necessary Git hooks for automatic synchronization.
 ## Scripts Overview
 
 ### install_hooks.sh
-Purpose: Sets up Git hooks for automatic synchronization of your dotfiles.
+**Purpose:** Sets up Git hooks for automatic synchronization of your dotfiles.
 How to Run:
 ```sh
 ./install_hook.sh
@@ -40,7 +40,7 @@ How to Run:
 
 Run this script once after cloning the repository to ensure the post-merge hook is properly installed.
 
-#### sync_files.sh
+### sync_files.sh
 
 **Purpose:** Synchronizes configurations between .dotfiles/.config and your system's .config directory, ensuring that any updates are reflected in both locations.
 - How to Run:
