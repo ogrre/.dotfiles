@@ -5,7 +5,7 @@
 To get started, you'll need to clone this repository to your local machine. Open a terminal and run the following command:
 
 ```sh
-git clone https://github.com/yourusername/.dotfiles.git ~/.dotfiles
+git clone https://github.com/0grre/.dotfiles.git ~/.dotfiles
 ```
 
 This command clones the repository into the `.dotfiles` directory in your home folder.
