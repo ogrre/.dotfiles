@@ -8,16 +8,18 @@ To get started, you'll need to clone this repository to your local machine. Open
 git clone https://github.com/yourusername/.dotfiles.git ~/.dotfiles
 ```
 
-This command clones the repository into the .dotfiles directory in your home folder.
+This command clones the repository into the `.dotfiles` directory in your home folder.
 
 ### Installation
 Before running the installation script, ensure you have `rsync` installed on your system, as our synchronization scripts rely on it.
 
-1. Install rsync:
+1. **Install rsync:**
 
 - On macOS: rsync is pre-installed.
 - On Linux: Install rsync using your package manager, e.g., sudo apt-get install rsync for Debian/Ubuntu.
-2. Run the Installation Script:
+
+2. **Run the Installation Script:**
+
 Navigate to the `.dotfiles` directory and run the installation script:
 
 ```sh
