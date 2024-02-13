@@ -51,6 +51,7 @@ You can manually run this script to synchronize your configurations at any time.
 ## How It Works
 
 **Post-Merge Hook:** After any git pull operation, the post-merge hook automatically triggers the synchronization script to update your configurations.
+
 **Synchronization Script:** This script uses rsync to sync files and directories between `.dotfiles/.config` and your system's `.config`, ensuring the latest configurations are always in use.
 
 ## Contributing
