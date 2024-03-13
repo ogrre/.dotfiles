@@ -16,9 +16,19 @@ require("lazy").setup({
 	{"nvim-telescope/telescope.nvim", tag = '0.1.5', dependencies = { 'nvim-lua/plenary.nvim' }},
 	{"bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 	{"nvim-neo-tree/neo-tree.nvim", branch = "v3.x", dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim", "3rd/image.nvim"}},
-
+	{"lambdalisue/fern.vim", config = function()
+    		local function open_fern()
+      			vim.cmd("Fern . -reveal=" .. vim.fn.expand("%") .. " -drawer -toggle")
+    		end
+    		vim.api.nvim_create_autocmd({ "VimEnter" }, {
+      		pattern = "*",
+      		nested = true,
+      		callback = open_fern,
+    		})
+  	end },
 })
 
 vim.cmd [[colorscheme moonfly]]
 vim.opt.number = true
+
 
