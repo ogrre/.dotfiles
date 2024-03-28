@@ -42,13 +42,27 @@ Run this script once after cloning the repository to ensure the post-merge hook 
 
 ### sync_files.sh
 
-**Purpose:** Synchronizes configurations between .dotfiles/.config and your system's .config directory, ensuring that any updates are reflected in both locations.
+**Purpose:** Synchronizes configurations between .dotfiles/.config and your system's .config directory, ensuring that any updates are reflected in both locations. This script can be run manually or automatically via a git hook after committing changes to the dotfiles repository.
+
+You can run this script manually to synchronize your configurations at any time, or it can be automatically triggered by committing changes to the dotfiles repository using the git hook.
+
 - How to Run:
   
 ```sh
 ./sync_files.sh
 ```
-You can manually run this script to synchronize your configurations at any time.
+
+### upload_files.sh
+
+**Purpose:** Uploads configurations from your system's .config directory to .dotfiles/.config, ensuring that any changes you've made to your configurations are saved in your dotfiles repository.
+
+- How to Run:
+```
+./upload_files.sh
+```
+
+You can run this script manually to upload your configurations at any time. 
+It is recommended to run this script before committing changes to your dotfiles repository, to ensure that your repository is up to date with your current configurations. This will allow you to synchronize your configurations across multiple systems and keep a backup of your configurations in your dotfiles repository.
 
 ## How It Works
 
