@@ -17,7 +17,7 @@ require("lazy").setup({
 	{"bluz71/vim-moonfly-colors", name = "moonfly", lazy = false, priority = 1000 },
 		{"lambdalisue/fern.vim", config = function()
 		local function open_fern()
-			vim.cmd("Fern . -reveal=" .. vim.fn.expand("%") .. " -drawer -toggle")
+			vim.cmd("Fern . -reveal=% -drawer -toggle")
 		end
 		vim.api.nvim_create_autocmd({ "VimEnter" }, {
 			pattern = "*",
@@ -74,7 +74,7 @@ require("lazy").setup({
 local map = require('utils').map
 
 -- Mappage de la commande :Fern -drawer -toggle en mode normal
-map('n', '<leader>f', ':Fern . -drawer -toggle<CR>')
+map('n', '<leader>f', ':Fern . -reveal=% -drawer -toggle<CR>')
 
 
 vim.cmd [[colorscheme moonfly]]
