@@ -1,3 +1,12 @@
+-- Config neovim
+vim.g.mapleader = " "
+vim.opt.termguicolors = true
+vim.opt.encoding = "UTF-8"
+vim.opt.number = true
+vim.wo.scrolloff = 20
+local km = vim.keymap
+
+-- Lazy 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -27,92 +36,51 @@ require("lazy").setup({
 	-- Telescope
 	{ "nvim-telescope/telescope.nvim",    tag = '0.1.5',      dependencies = { 'nvim-lua/plenary.nvim' } },
 	-- Noice (command in middle of screen)
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		opts = {
-			-- add any options here
-		},
-		dependencies = {
-			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-			"MunifTanjim/nui.nvim",
-			-- OPTIONAL:
-			--   `nvim-notify` is only needed, if you want to use the notification view.
-			--   If not available, we use `mini` as the fallback
-			"rcarriga/nvim-notify",
-		}
+	{"folke/noice.nvim",
+	event = "VeryLazy",
+	opts = {
+		-- add any options here
 	},
-	-- Fern
-	{
-		"lambdalisue/fern.vim",
-		config = function()
-			local function open_fern()
-				vim.cmd("Fern . -reveal=% -drawer -toggle")
-			end
-			vim.api.nvim_create_autocmd({ "VimEnter" }, {
-				pattern = "*",
-				nested = true,
-				callback = open_fern,
-			})
-
-			-- Définissez vos mappings ici
-			local fern_mappings = {
-				n = {
-					["p"] = { "<Plug>(fern-action-preview:toggle)", "Toggle preview" },
-					["<C-p>"] = { "<Plug>(fern-action-preview:auto:toggle)", "Auto toggle preview" },
-					["<C-d>"] = { "<Plug>(fern-action-preview:scroll:down:half)", "Scroll down in preview" },
-					["<C-u>"] = { "<Plug>(fern-action-preview:scroll:up:half)", "Scroll up in preview" },
-				},
-			}
-
-			-- Utilisez l'API Neovim Lua pour définir les mappings pour le buffer Fern
-			local function set_mappings(bufnr)
-				local function map(mode, lhs, rhs, desc)
-					local opts = { noremap = true, silent = true }
-					if desc then
-						opts.desc = desc
-					end
-					vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
-				end
-
-				for mode, bindings in pairs(fern_mappings) do
-					for lhs, rhs in pairs(bindings) do
-						map(mode, lhs, rhs[1], rhs[2])
-					end
-				end
-			end
-
-			-- Créez un autogroupe et un autocommande pour définir les mappings lorsque Fern est chargé
-			vim.api.nvim_create_augroup("fern-settings", { clear = true })
-			vim.api.nvim_create_autocmd("FileType", {
-				group = "fern-settings",
-				pattern = "fern",
-				callback = function()
-					set_mappings(vim.api.nvim_get_current_buf())
-				end,
-			})
-		end,
-		dependencies = {
-			"lambdalisue/fern-git-status.vim",
-			"lambdalisue/fern-renderer-nerdfont.vim",
-			"lambdalisue/fern-hijack.vim",
-			"lambdalisue/fern-renderer-devicons.vim",
-			"yuki-yano/fern-preview.vim",
-		}
-	},
+	dependencies = {
+		-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+		"MunifTanjim/nui.nvim",
+		-- OPTIONAL:
+		--   `nvim-notify` is only needed, if you want to use the notification view.
+		--   If not available, we use `mini` as the fallback
+		"rcarriga/nvim-notify",
+	}
+},
+-- Fern
+{"lambdalisue/fern.vim",
+	dependencies = {
+		"lambdalisue/fern-git-status.vim",
+		"lambdalisue/fern-hijack.vim",
+		'lambdalisue/nerdfont.vim',
+		"lambdalisue/fern-renderer-nerdfont.vim",
+		"yuki-yano/fern-preview.vim",
+	}
+},
+-- nvim-cmp
+{'hrsh7th/nvim-cmp',
+requires = {
+	{ 'hrsh7th/cmp-nvim-lsp' },
+	{ 'hrsh7th/cmp-buffer' },
+	{ 'hrsh7th/cmp-path' },
+	{ 'hrsh7th/cmp-nvim-lua' },
+	-- Autres sources si nécessaire
+}
+},
 })
 
 --LSP
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(client, bufnr)
-	-- see :help lsp-zero-keybindings
-	-- to learn the available actions
 	lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
+-- Mason
 require('mason').setup({})
--- here you can setup the language servers
 require('mason-lspconfig').setup({
 	ensure_installed = {
 		'lua_ls',
@@ -127,17 +95,72 @@ require('mason-lspconfig').setup({
 	},
 	handlers = {
 		lsp_zero.default_setup,
-
-		--- replace `example_server` with the name of a language server
 	},
 })
 
--- Dans le fichier init.lua
-local map = require('utils').map
+-- Autocompletion LSP
+local cmp = require('cmp')
 
--- Mappage de la commande :Fern -drawer -toggle en mode normal
-map('n', '<leader>f', ':Fern . -reveal=% -drawer -toggle<CR>')
+cmp.setup({
+	sources = {
+		{name = 'nvim_lsp'},
+	},
+	mapping = {
+		['<C-y>'] = cmp.mapping.confirm({select = false}),
+		['<C-e>'] = cmp.mapping.abort(),
+		['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+		['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+		['<C-p>'] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_prev_item({behavior = 'insert'})
+			else
+				cmp.complete()
+			end
+		end),
+		['<C-n>'] = cmp.mapping(function()
+			if cmp.visible() then
+				cmp.select_next_item({behavior = 'insert'})
+			else
+				cmp.complete()
+			end
+		end),
+	},
+	snippet = {
+		expand = function(args)
+			require('luasnip').lsp_expand(args.body)
+		end,
+	},
+})
 
+-- Noice
+require("noice").setup({
+	lsp = {
+		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+		override = {
+			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+			["vim.lsp.util.stylize_markdown"] = true,
+			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+		},
+	},
+	-- you can enable a preset for easier configuration
+	presets = {
+		bottom_search = true, -- use a classic bottom cmdline for search
+		command_palette = true, -- position the cmdline and popupmenu together
+		long_message_to_split = true, -- long messages will be sent to a split
+		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+		lsp_doc_border = false, -- add a border to hover docs and signature help
+	},
+})
 
+-- Fern
+vim.g['fern#renderer'] = 'nerdfont'
+
+-- Theme
 vim.cmd [[colorscheme moonfly]]
-vim.opt.number = true
+
+-- MAPPING
+-- Fern
+km.set("n", "<leader>ee", ":Fern . -drawer -width=60 -toggle<CR>", { silent = true, noremap = true })
+km.set("n", "<leader>es", ":Fern . -reveal=% -drawer -width=60 -toggle<CR>", { silent = true, noremap = true })
+
+
