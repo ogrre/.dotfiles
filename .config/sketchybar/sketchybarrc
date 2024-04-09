@@ -15,7 +15,7 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 font = "SFMono-Regular:size=6"
 icons = "SF-Symbols:size=6"
 
-sketchybar --bar position=top margin=3 height=30 blur_radius=30 color=0x40000000 border_width=2 border_color=0xfff5a623 corner_radius=9
+sketchybar --bar position=top margin=3 height=30 blur_radius=30 color=0x40000000 border_width=2 border_color=0xff619d3c corner_radius=9
 
 ##### Changing Defaults #####
 # We now change some default values, which are applied to all further items.
@@ -51,7 +51,7 @@ do
     space="$sid"
     icon="${SPACE_ICONS[i]}"
     icon.color=0xffffffff
-    icon.highlight_color=0xfff5a623
+    icon.highlight_color=0xff619d3c
     label.drawing=off
     script="$PLUGIN_DIR/space.sh"
     click_script="yabai -m space --focus $sid"
