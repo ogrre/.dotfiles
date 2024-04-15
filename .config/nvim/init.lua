@@ -155,6 +155,9 @@ require("noice").setup({
 -- Fern
 vim.g['fern#renderer'] = 'nerdfont'
 
+-- Fern -- Preview -- disable 'modifiable'
+vim.g.preview_nvim_disable_sync = 1
+
 -- Theme
 vim.cmd [[colorscheme moonfly]]
 
