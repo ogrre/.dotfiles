@@ -7,6 +7,12 @@ lctrl + alt - 3 : yabai -m display --focus 3
 lctrl + alt - 4 : yabai -m display --focus 4
 lctrl + alt - 5 : yabai -m display --focus 5
 
+# Create new space
+lctrl + alt - = : yabai -m space --create
+
+# Remove current space
+lctrl + alt - - : yabai -m space --destroy
+
 # Focus spaces 
 lctrl - p: yabai -m space --focus prev
 lctrl - n: yabai -m space --focus next
