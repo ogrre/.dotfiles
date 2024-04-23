@@ -17,4 +17,8 @@ brew tap FelixKratz/formulae
 brew install sketchybar
 brew services start sketchybar
 
-
+# Zsh
+brew install zsh-syntax-highlighting
+git clone https://github.com/scmbreeze/scm_breeze.git ~/.scm_breeze
+~/.scm_breeze/install.sh
+source "${ZDOTDIR:-$HOME}/.zshrc"
